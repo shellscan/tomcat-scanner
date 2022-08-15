@@ -8,11 +8,12 @@
 <%@ page import="org.apache.catalina.Container" %>
 <%@ page import="java.util.*" %>
 <%@ page import="org.apache.catalina.Wrapper" %>
-<%@ page import="org.apache.catalina.connector.Request" %>
 <%@ page import="org.apache.catalina.core.StandardContext" %>
-<%@ page import="java.io.IOException" %>
-<%@ page import="java.io.PrintWriter" %><%--
+<%--
   Tomcat中Servlet扫描,servlet从standardcontext中取出，其他容器中无法存入servlet
+  
+  User: gaoshang
+  Date: 2022/2/21
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%!//自定义ServletBean
@@ -70,10 +71,6 @@ public StandardContext getStandardContext(HttpServletRequest request) throws Exc
 	Field context = applicationContext.getClass().getDeclaredField("context");
 	context.setAccessible(true);
 	return (StandardContext) context.get(applicationContext);
-	/*Field reqF = request.getClass().getDeclaredField("request");
-	reqF.setAccessible(true);
-	Request o = (Request) reqF.get(request);
-	return (StandardContext) o.getContext(); */
 }
 //获取servlet集合
 public Set<Map.Entry<String, Container>> getContainerSet(StandardContext context) throws Exception{
@@ -93,7 +90,7 @@ public Set<Entry<String, ServletBean>> getChildrenSet(Set<Map.Entry<String, Cont
 		
 		String servletClass = value.getServletClass();
 		String[] mappings = value.findMappings();
-		Boolean loadOnStartup = value.getLoadOnStartup() == 1;
+		Boolean loadOnStartup = value.getLoadOnStartup() >= 1;
 		
 		List<String> urlMapping = new ArrayList<>();
 		for (String mapping : mappings) {
