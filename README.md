@@ -1,2 +1,2 @@
 # tomcat-scanner
-A tool is used to scan tomcat memory shell.
+A package of tools which are used to scan tomcat memory shell.
