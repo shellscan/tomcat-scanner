@@ -1,5 +1,5 @@
 # tomcat-scanner
-* A package of tools which are used to scan tomcat memory shell.It covers the following components:
+* A package of tools which are used to scan *Tomcat Memory Shell*. It covers the following components:
   1. Service
   2. Engine
   3. Host
